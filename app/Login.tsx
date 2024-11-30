@@ -1,6 +1,6 @@
 import { Text,View, Image, Pressable } from "react-native";
 import LoginWithGoogle from "../components/LoginWithGoogle";
-
+import LoginWithApple from "../components/LoginWithApple";
 
 export default function Login() {
   return (
@@ -15,7 +15,9 @@ export default function Login() {
          <View className="w-full h-20 flex-initial justify-center ">
           <LoginWithGoogle/>
          </View>
-       
+         <View className="w-full h-20 flex-initial justify-center ">
+          <LoginWithApple/>
+         </View>
  
     </View>
 
