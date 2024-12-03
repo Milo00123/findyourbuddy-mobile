@@ -14,13 +14,15 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.milocbj.findyourbuddymobile"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.milocbj.findyourbuddymobile"
     },
     "web": {
       "bundler": "metro",
@@ -35,7 +37,11 @@
           "supportsPictureInPicture": true
         }
       ]
-   
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "f16abb2e-f83c-4c26-99f3-b3fecd00e581"
+      }
+    }
   }
 }
