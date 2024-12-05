@@ -1,4 +1,4 @@
-import { Text,View, Image, Pressable } from "react-native";
+import { Text,View, Image, Pressable} from "react-native";
 import LoginWithGoogle from "../components/LoginWithGoogle";
 import LoginWithApple from "../components/LoginWithApple";
 
