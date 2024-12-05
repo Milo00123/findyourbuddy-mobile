@@ -1,4 +1,5 @@
-import { Pressable,Image, Text } from "react-native";
+import { Pressable,Image, Text, Platform } from "react-native";
+import { useRouter } from 'expo-router';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import axios from "axios";
@@ -10,6 +11,7 @@ const googleIcon = require('../assets/Icons/Google_Icon.webp')
 WebBrowser.maybeCompleteAuthSession();
 
 export default function LoginWithGoogle() {
+  const router = useRouter();
     const [config, setConfig] = useState({
         androiClientId: '',
         iosClientId: '',
@@ -45,14 +47,40 @@ export default function LoginWithGoogle() {
             console.error('error getting user', error)
         }
         }
-    const handleToken = () => {
-        if(response?.type === 'success'){
-            const {authentication} = response;
-            const token = authentication?.accessToken;
-            console.log('access token', token)
-            getUserProfile(token)
-        }
-    }
+        const handleToken = async () => {
+          if (response?.type === 'success') { 
+              const { authentication } = response;
+              const idToken = authentication?.idToken; 
+              console.log('ID Token:', idToken);
+      
+              if (idToken) {
+                  try {
+                      const backendResponse = await axios.post('http://localhost:8080/auth/login/google', {
+                          token: idToken, 
+                      }, {
+                          headers: {
+                              platform: Platform.OS, 
+                          },
+                      });
+      
+                      if (backendResponse.status === 200) {
+                          console.log('Backend Response:', backendResponse.data);
+      
+                          
+                          const userId = backendResponse.data.userId; 
+                          router.push(`/Pool/${userId}`);
+                      } else {
+                          console.error('Backend Error:', backendResponse.data);
+                      }
+                  } catch (error) {
+                      console.error('Error sending token to backend:', error);
+                  }
+              }
+          } else if (response?.type === 'error') {
+              console.error('Authentication Error:', response.errorCode);
+          }
+      };
+      
 
     useEffect(() =>{
         handleToken()
