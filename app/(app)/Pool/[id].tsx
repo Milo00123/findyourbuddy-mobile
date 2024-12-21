@@ -4,7 +4,7 @@ export default function Pool() {
   return (
     <View className="w-full flex-1 flex-row-reverse " >
       <View className="mr-3 mt-3">
-      <PostBtn label= 'POST '/>
+      <PostBtn label= '+ POST '/>
 
       </View>
     </View>
